@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import "./App.css";
 
 function App() {
@@ -7,12 +8,14 @@ function App() {
   useEffect(() => {
     getCurrentWalletConnected();
     addWalletListener();
-  }, [walletAddress]);
+  });
 
   const connectWallet = async () => {
-    if (typeof window != "undefined" && typeof window.ethereum != "undefined") {
+    if (
+      typeof window !== "undefined" &&
+      typeof window.ethereum !== "undefined"
+    ) {
       try {
-        /* MetaMask is installed */
         const accounts = await window.ethereum.request({
           method: "eth_requestAccounts",
         });
@@ -22,13 +25,15 @@ function App() {
         console.error(err.message);
       }
     } else {
-      /* MetaMask is not installed */
       console.log("Please install MetaMask");
     }
   };
 
   const getCurrentWalletConnected = async () => {
-    if (typeof window != "undefined" && typeof window.ethereum != "undefined") {
+    if (
+      typeof window !== "undefined" &&
+      typeof window.ethereum !== "undefined"
+    ) {
       try {
         const accounts = await window.ethereum.request({
           method: "eth_accounts",
@@ -37,25 +42,26 @@ function App() {
           setWalletAddress(accounts[0]);
           console.log(accounts[0]);
         } else {
-          console.log("Connect to MetaMask using the Connect button");
+          console.log("Connect to MetaMask using the connect button");
         }
       } catch (err) {
         console.error(err.message);
       }
     } else {
-      /* MetaMask is not installed */
       console.log("Please install MetaMask");
     }
   };
 
   const addWalletListener = async () => {
-    if (typeof window != "undefined" && typeof window.ethereum != "undefined") {
+    if (
+      typeof window !== "undefined" &&
+      typeof window.ethereum !== "undefined"
+    ) {
       window.ethereum.on("accountsChanged", (accounts) => {
         setWalletAddress(accounts[0]);
         console.log(accounts[0]);
       });
     } else {
-      /* MetaMask is not installed */
       setWalletAddress("");
       console.log("Please install MetaMask");
     }
@@ -66,7 +72,7 @@ function App() {
       <nav className="navbar">
         <div className="container">
           <div className="navbar-brand">
-            <h1 className="navbar-item is-size-4">Ocean Token (OCT)</h1>
+            <h1 className="navbar-item is-size-4"></h1>
           </div>
           <div id="navbarMenu" className="navbar-menu">
             <div className="navbar-end is-align-items-center">
@@ -89,7 +95,7 @@ function App() {
       </nav>
       <section className="hero is-fullheight">
         <div className="faucet-hero-body">
-          <div className="container has-text-centered main-content">
+          {/* <div className="container has-text-centered main-content">
             <h1 className="title is-1">Faucet</h1>
             <p>Fast and reliable. 50 OCT/day.</p>
             <div className="box address-box">
@@ -114,7 +120,7 @@ function App() {
                 </div>
               </article>
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
     </div>
